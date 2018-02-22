@@ -1,0 +1,83 @@
+<nav class="navbar navbar-fixed-top nav-blue">
+  <div class="col-xs-4 hidden-xs">
+    <div class = "container-fluid">
+      <a routerLink="../../"
+         class="navbar-text white-text icon-padding">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a routerLink="../"
+         class="navbar-text white-text pull-left">
+        Websites
+      </a>
+      <a routerLink="./"
+         class="navbar-text white-text pull-right icon-padding">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </div>
+  </div>
+  <div class="col-xs-8">
+    <div class = "container-fluid">
+      <a routerLink="./"
+         class="navbar-text white-text pull-left">
+        New Website
+      </a>
+      <button (click)="createWebsite()" [disabled]="!w.valid"
+         class="navbar-text btn-link white-text pull-right icon-padding">
+        <span class="glyphicon glyphicon-ok"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid container-height">
+  <div class="col-xs-4 hidden-xs divider">
+    <ul class="ul-no-style" *ngFor="let web of websites">
+      <li class="li-margin">
+        <a routerLink="../{{web._id}}">
+          <span class="glyphicon glyphicon-cog pull-right icon-padding"></span>
+        </a>
+        <a routerLink="../{{web._id}}/page">
+          {{web.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-xs-8 container-padding">
+    <form (ngSubmit)="createWebsite()" #w="ngForm">
+      <label for="Website-Name">Name</label>
+      <input id="Website-Name"
+             type="text"
+             class="form-control"
+             placeholder="Name"
+             name="websiteName"
+             ngModel required #websiteName="ngModel"/>
+      <span class="help-block" *ngIf="!websiteName.valid && websiteName.touched">
+      Please enter website name!
+      </span>
+      <label for="Website-Description">Description</label>
+      <textarea id="Website-Description"
+                class="form-control"
+                rows="8"
+                placeholder="Add a description for your website."
+                name="websiteDescription"
+                [(ngModel)]="websiteDescription">
+      </textarea>
+      <button class="btn btn-primary btn-block"
+              type="submit"
+              [disabled]="!w.valid">Create</button>
+    </form>
+  </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-blue">
+  <div class="container-fluid">
+    <a routerLink="/login"
+       class="navbar-text white-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink="../../../"
+       class="navbar-text white-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

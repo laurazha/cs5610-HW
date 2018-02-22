@@ -1,0 +1,79 @@
+<nav class="navbar navbar-fixed-top nav-blue">
+  <div class="col-xs-4 hidden-xs">
+    <div class = "container-fluid row">
+      <a routerLink='../'
+         class="navbar-text white-text icon-padding">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a routerLink='../'
+         class="navbar-text white-text pull-left">
+        Websites
+      </a>
+      <a routerLink='../new'
+         class="navbar-text white-text pull-right icon-padding">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </div>
+  </div>
+  <div class="col-xs-8">
+    <div class="container-fluid row">
+      <a routerLink='./'
+         class="navbar-text white-text pull-left">
+        Edit Website
+      </a>
+      <a routerLink='../'
+         class="navbar-text white-text pull-right icon-padding">
+        <span class="glyphicon glyphicon-ok"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid container-height">
+  <div class="col-xs-4 hidden-xs divider">
+    <ul class="ul-no-style" *ngFor="let web of websites">
+      <li class="li-margin">
+        <a routerLink="../{{web._id}}">
+          <span class="glyphicon glyphicon-cog pull-right icon-padding"></span>
+        </a>
+        <a routerLink="../{{web._id}}/page">
+          {{web.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-xs-8 container-padding">
+    <label for="Edit-Website-Name">Website Name</label>
+    <input id="Edit-Website-Name"
+           type="text"
+           class="form-control"
+           placeholder="Blogger"
+           [(ngModel)]="website.name"/>
+    <label for="Edit-Website-Description">Website Description</label>
+    <textarea id="Edit-Website-Description"
+              class="form-control"
+              rows="8"
+              placeholder="Add a description for your website."
+              [(ngModel)]="website.description">
+    </textarea>
+    <a class="btn btn-success btn-block" (click)="updateWebsite()">
+      Update
+    </a>
+    <a class="btn btn-danger btn-block" (click)="deleteWebsite()">
+      Delete
+    </a>
+  </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-blue">
+  <div class="container-fluid">
+    <a routerLink='/login'
+       class="navbar-text white-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink='../../'
+       class="navbar-text white-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

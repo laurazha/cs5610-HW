@@ -1,0 +1,39 @@
+<nav class="navbar nav-grey navbar-fixed-top">
+  <div class = "container-fluid row">
+    <a routerLink="../../"
+       class="navbar-text black-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text grey-text pull-left">
+      Pages
+    </a>
+    <a routerLink="./new"
+       class="black-text navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-plus"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container-fluid container-padding">
+  <ul class="ul-no-style" *ngFor="let p of pages">
+    <li class="li-margin">
+      <a routerLink="./{{p._id}}/widget">
+        {{p.name}}
+      </a>
+      <a routerLink="./{{p._id}}">
+        <span class="glyphicon glyphicon-cog pull-right icon-padding"></span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <a routerLink="/login" class="navbar-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span></a>
+    <a routerLink="../../../" class="navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

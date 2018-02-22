@@ -1,1 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+html,body {
+  height: 100%;
+}
+
+.container-padding {
+  padding-bottom: 70px;
+}
+
+.container-height {
+  height: 100%;
+}
+
+input.form-control {
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-bottom: 10px;
+}
+
+.navbar-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.white-text {
+  color: #FFFFFF;
+}
+
+.black-text {
+  color: #000000;
+}
+
+.grey-text {
+  color: #777;
+}
+
+.nav-blue {
+  background-color: #337ab7;
+}
+
+.nav-grey {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+
+.icon-padding {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.ul-no-style {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.li-margin {
+  font-size: 18px;
+  margin: 18px;
+  padding: 0;
+}
+
+textarea {
+  margin-bottom: 10px;
+}
+
+.divider {
+  height: 100%;
+  border-right: 1px solid;
+}
+
+.widget {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.widget-image {
+  display: inline;
+  width: 100%;
+}
+
+.widget-icons{
+  background-color: white;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+}
+
+.index-style {
+  padding: 20%;
+}
+
+input.ngInvalid.ngTouched {
+  color: red;
+}

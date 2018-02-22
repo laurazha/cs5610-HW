@@ -1,0 +1,42 @@
+<div class = "container container-padding">
+  <h1>Register</h1>
+
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+
+  <form (ngSubmit)="register()" #r="ngForm">
+    <input type="text"
+           class="form-control"
+           placeholder="username"
+           name="username"
+           ngModel required #username="ngModel"/>
+    <span class="help-block" *ngIf="!username.valid && username.touched">
+      Please enter username!
+    </span>
+
+    <input type="password"
+           class="form-control"
+           placeholder="password"
+           name="password"
+           ngModel required #password="ngModel"/>
+    <span class="help-block" *ngIf="!password.valid && password.touched">
+      Please enter password!
+    </span>
+
+    <input type="password"
+           class="form-control"
+           placeholder="verify password"
+           name="vpassword"
+           ngModel required #vpassword="ngModel"/>
+    <span class="help-block" *ngIf="!vpassword.valid && vpassword.touched">
+      Please verify password!
+    </span>
+
+    <button class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!r.valid">Register</button>
+  </form>
+  <a class="btn btn-danger btn-block" routerLink="/login">Cancel</a>
+</div>

@@ -1,0 +1,82 @@
+<nav class="navbar nav-grey navbar-fixed-top">
+  <div class = "container-fluid row">
+    <a routerLink="../../"
+       class="navbar-text black-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text grey-text pull-left">
+      Widgets
+    </a>
+    <a routerLink="./new"
+       class="black-text navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-plus"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container container-padding">
+  <div class="widget" *ngFor="let wid of widgets">
+    <div class="widget-icons">
+      <a routerLink="./" class="pull-right black-text">
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+      </a>
+      <a routerLink="./{{wid._id}}" class="pull-right">
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
+    </div>
+    <div [ngSwitch]="wid.widgetType">
+      <div *ngSwitchCase="'HTML'">
+        <p>{{wid.text}}</p>
+      </div>
+      <div *ngSwitchCase="'HEADING'">
+        <div [ngSwitch]="wid.size">
+          <div *ngSwitchCase="'1'">
+            <h1>{{wid.text}}</h1>
+          </div>
+          <div *ngSwitchCase="'2'">
+            <h2>{{wid.text}}</h2>
+          </div>
+          <div *ngSwitchCase="'3'">
+            <h3>{{wid.text}}</h3>
+          </div>
+          <div *ngSwitchCase="'4'">
+            <h4>{{wid.text}}</h4>
+          </div>
+          <div *ngSwitchCase="'5'">
+            <h5>{{wid.text}}</h5>
+          </div>
+          <div *ngSwitchCase="'6'">
+            <h6>{{wid.text}}</h6>
+          </div>
+          <div *ngSwitchDefault>
+            <h1>{{wid.text}}</h1>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'IMAGE'">
+        <img class="img-responsive widget-image" width="{{wid.width}}"
+             [src]="wid.url | safe">
+      </div>
+      <div *ngSwitchCase="'YOUTUBE'">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe width="{{wid.width}}" height="315" [src]="wid.url | safe"
+                  frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <a routerLink="/login"
+       class="navbar-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink="../../../../../"
+       class="navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

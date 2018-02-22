@@ -1,0 +1,51 @@
+<nav class="navbar nav-grey navbar-fixed-top">
+  <div class = "container-fluid row">
+    <a routerLink="../"
+       class="navbar-text black-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text grey-text pull-left">
+      Edit Page
+    </a>
+    <button (click)="createPage()" [disabled]="!p.valid"
+            class="black-text navbar-text btn-link pull-right icon-padding">
+      <span class="glyphicon glyphicon-ok"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="container container-padding">
+  <form (ngSubmit)="createPage()" #p="ngForm">
+    <label for="New-Page-Name">Name</label>
+    <input id="New-Page-Name"
+           type="text"
+           class="form-control"
+           placeholder="Page Name"
+           name="pageName"
+           ngModel required #pageName="ngModel"/>
+    <span class="help-block" *ngIf="!pageName.valid && pageName.touched">
+      Please enter page name!
+      </span>
+    <label for="New-Page-Title">Title</label>
+    <input id="New-Page-Title"
+           type="text"
+           class="form-control"
+           placeholder="Page Description"
+           name="pageDescription"
+           [(ngModel)]="pageDescription"/>
+    <button class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!p.valid">Create</button>
+  </form>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <a routerLink="/login" class="navbar-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span></a>
+    <a routerLink="../../../../" class="navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-fixed-top nav-blue">
+  <div class = "container-fluid row">
+    <a routerLink="../"
+       class="navbar-text white-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text white-text pull-left">
+      Websites
+    </a>
+    <a routerLink="./new"
+       class="navbar-text white-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-plus"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container-fluid container-padding">
+  <ul class="ul-no-style" *ngFor="let web of websites">
+    <li class="li-margin">
+      <a routerLink="./{{web._id}}">
+        <span class="glyphicon glyphicon-cog pull-right icon-padding"></span>
+      </a>
+      <a routerLink="./{{web._id}}/page">
+        {{web.name}}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-blue">
+  <div class="container-fluid">
+    <a routerLink="/login"
+       class="navbar-text white-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink="../"
+       class="navbar-text white-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>
+

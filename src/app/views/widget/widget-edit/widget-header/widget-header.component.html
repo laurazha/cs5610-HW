@@ -1,0 +1,19 @@
+<label for="WidgetHeaderName">WidgetId (Cannot change)</label>
+<input id="WidgetHeaderName"
+       type="text"
+       class="form-control"
+       placeholder="{{widget._id}}"
+       disabled/>
+<label for="WidgetHeaderText">Text</label>
+<input id="WidgetHeaderText"
+       type="text"
+       class="form-control"
+       placeholder="Text"
+       [(ngModel)]="widget.text"/>
+<label for="WidgetHeaderSize">Size</label>
+<input id="WidgetHeaderSize"
+       type="text"
+       class="form-control"
+       placeholder="3"
+       [(ngModel)]="widget.size"/>
+
