@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../models/user.model.client';
 import {UserService} from '../../../services/user.service.client';
 
@@ -15,21 +15,48 @@ export class ProfileComponent implements OnInit {
   userId: string;
   updateFlag = false;
   updateMsg = 'Profile updated!';
+  errorFlag = false;
+  errorMsg = 'Username and password cannot be empty!';
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute) { }
-
-  updateUser() {
-    this.user = this.userService.updateUser(this.userId, this.user);
-    this.updateFlag = true;
+    private router: Router,
+    private route: ActivatedRoute) {
+    this.user = new User('', '', '', '', '');
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.userId = params['userId'];
-      this.user = this.userService.findUserById(this.userId);
+      this.userService.findUserById(this.userId).subscribe(
+        (user: User) => {
+          this.user = user;
+        },
+        (error: any) => console.log(error)
+      );
     });
   }
 
+  updateUser() {
+    if (this.user.username && this.user.password) {
+      this.userService.updateUser(this.userId, this.user).subscribe(
+        (user: User) => {
+          this.user = user;
+          this.updateFlag = true;
+        },
+        (error: any) => console.log(error));
+    } else {
+      this.errorFlag = true;
+    }
+  }
+
+  deleteUser() {
+    this.userService.deleteUser(this.userId).subscribe(
+      () => {
+        this.router.navigate(['/login']);
+      },
+      (error: any) => console.log(error)
+    );
+  }
 }
+

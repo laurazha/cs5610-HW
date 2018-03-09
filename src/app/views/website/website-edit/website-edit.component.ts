@@ -17,23 +17,44 @@ export class WebsiteEditComponent implements OnInit {
   constructor(
     private websiteService: WebsiteService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+    this.website = new Website('', '', '', '');
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.websiteId = params['wid'];
-      this.website = this.websiteService.findWebsitesById(this.websiteId);
-      this.websites = this.websiteService.findWebsitesByUser(this.website.developerId);
+      this.websiteService.findWebsiteById(this.websiteId).subscribe(
+        (website: Website) => {
+          this.website = website;
+        },
+        (error: any) => console.log(error)
+      );
+      this.websiteService.findWebsitesByUser(params['uid']).subscribe(
+        (websites: Website[]) => {
+          this.websites = websites;
+        },
+        (error: any) => console.log(error)
+      );
     });
   }
 
   updateWebsite() {
-    this.website = this.websiteService.updateWebsite(this.websiteId, this.website);
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.websiteService.updateWebsite(this.websiteId, this.website).subscribe(
+      (website: Website) => {
+        this.website = website;
+        this.router.navigate(['../'], { relativeTo: this.route });
+      },
+      (error: any) => console.log(error)
+    );
   }
 
   deleteWebsite() {
-    this.websiteService.deleteWebsite(this.websiteId);
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.websiteService.deleteWebsite(this.websiteId).subscribe(
+      () => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      },
+      (error: any) => console.log(error)
+    );
   }
 }

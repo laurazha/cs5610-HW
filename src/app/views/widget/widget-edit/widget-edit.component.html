@@ -1,54 +1,14 @@
-<nav class="navbar nav-grey navbar-fixed-top">
-  <div class = "container-fluid row">
-    <a routerLink="../"
-       class="navbar-text black-text pull-left icon-padding">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a routerLink="./"
-       class="navbar-text grey-text pull-left">
-      Widget Edit
-    </a>
-    <a (click)="updateWidget()"
-       class="black-text navbar-text pull-right icon-padding">
-      <span class="glyphicon glyphicon-ok"></span>
-    </a>
+<div [ngSwitch]="widget.widgetType">
+  <div *ngSwitchCase="'HEADING'">
+    <app-widget-header></app-widget-header>
   </div>
-</nav>
-
-<div class="container container-padding">
-  <div [ngSwitch]="widget.widgetType">
-    <div *ngSwitchCase="'HEADING'">
-      <app-widget-header></app-widget-header>
-    </div>
-    <div *ngSwitchCase="'IMAGE'">
-      <app-widget-image></app-widget-image>
-    </div>
-    <div *ngSwitchCase="'YOUTUBE'">
-      <app-widget-youtube></app-widget-youtube>
-    </div>
-    <div *ngSwitchCase="'HTML'">
-      <h3>Currently not support HTML update.</h3>
-    </div>
+  <div *ngSwitchCase="'IMAGE'">
+    <app-widget-image></app-widget-image>
   </div>
-  <a class="btn btn-success btn-block"
-     (click)="updateWidget()">
-    Update
-  </a>
-  <a class="btn btn-danger btn-block"
-     (click)="deleteWidget()">
-    Delete
-  </a>
+  <div *ngSwitchCase="'YOUTUBE'">
+    <app-widget-youtube></app-widget-youtube>
+  </div>
+  <div *ngSwitchCase="'HTML'">
+    <h3>Currently not support HTML update.</h3>
+  </div>
 </div>
-
-<nav class="navbar navbar-fixed-bottom nav-grey">
-  <div class="container-fluid">
-    <a routerLink="/login"
-       class="navbar-text pull-left icon-padding">
-      <span class="glyphicon glyphicon-home"></span>
-    </a>
-    <a routerLink="../../../../../../"
-       class="navbar-text pull-right icon-padding">
-      <span class="glyphicon glyphicon-user"></span>
-    </a>
-  </div>
-</nav>

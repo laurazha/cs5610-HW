@@ -24,18 +24,25 @@ export class WebsiteNewComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.developerId = params['userId'];
-      this.websites = this.websiteService.findWebsitesByUser(this.developerId);
+      this.websiteService.findWebsitesByUser(this.developerId).subscribe(
+        (websites: Website[]) => {
+          this.websites = websites;
+        },
+        (error: any) => console.log(error)
+      );
     });
   }
 
   createWebsite() {
     this.websiteName = this.webForm.value.websiteName;
     this.websiteDescription = this.webForm.value.websiteDescription;
-    let website = new Website('', this.websiteName, this.developerId, this.websiteDescription);
-    website = this.websiteService.createWebsite(this.developerId, website);
-    if (website) {
-      this.router.navigate(['/profile', this.developerId, 'website']);
-    }
+    const website = new Website('', this.websiteName, this.developerId, this.websiteDescription);
+    this.websiteService.createWebsite(this.developerId, website).subscribe(
+      (data: any) => {
+        this.router.navigate(['/profile', this.developerId, 'website']);
+      },
+      (error: any) => console.log(error)
+    );
   }
 
 }

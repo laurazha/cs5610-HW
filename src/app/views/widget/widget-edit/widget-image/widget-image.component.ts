@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Widget} from '../../../../models/widget.model.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-image',
@@ -11,16 +12,50 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class WidgetImageComponent implements OnInit {
   widgetId: string;
   widget: Widget;
+  websiteId: string;
+  pageId: string;
+  userId: string;
+  baseUrl = environment.baseUrl;
 
-  constructor(
-    private route: ActivatedRoute,
-    private widgetService: WidgetService) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private widgetService: WidgetService) {
+    this.widget = new Widget('', '', '', 1, '', '', '');
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.websiteId = params['wid'];
+      this.pageId = params['pid'];
+      this.userId = params['userId'];
       this.widgetId = params['wgid'];
-      this.widget = this.widgetService.findWidgetById(this.widgetId);
+      this.widgetService.findWidgetById(params['wgid']).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+        },
+        (error: any) => console.log(error)
+      );
     });
+    console.log('init url: ' + this.widget.url);
   }
 
+  updateWidget() {
+    this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
+      (widget: Widget) => {
+        console.log('update: ' + widget);
+        this.widget = widget;
+        this.router.navigate(['../'], {relativeTo: this.route});
+      },
+      (error: any) => console.log(error)
+    );
+  }
+
+  deleteWidget() {
+    this.widgetService.deleteWidget(this.widgetId).subscribe(
+      () => {
+        this.router.navigate(['../'], {relativeTo: this.route});
+      },
+      (error: any) => console.log(error)
+    );
+  }
 }

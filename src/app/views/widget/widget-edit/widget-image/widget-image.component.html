@@ -1,26 +1,96 @@
-<label for="WidgetImageName">WidgetId (Cannot change)</label>
-<input id="WidgetImageName"
-       type="text"
-       class="form-control"
-       placeholder="{{widget._id}}"
-       disabled/>
-<label for="WidgetImageURL">URL</label>
-<input id="WidgetImageURL"
-       type="url"
-       class="form-control"
-       placeholder="URL"
-       [(ngModel)]="widget.url"/>
-<label for="WidgetImageWidth">Width</label>
-<input id="WidgetImageWidth"
-       type="text"
-       class="form-control"
-       placeholder="100%"
-       [(ngModel)]="widget.width"/>
+<nav class="navbar nav-grey navbar-fixed-top">
+  <div class = "container-fluid row">
+    <a routerLink="../"
+       class="navbar-text black-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text grey-text pull-left">
+      Widget Edit
+    </a>
+    <a (click)="updateWidget()"
+       class="black-text navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-ok"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container container-padding">
+  <form>
+    <label for="WidgetImageName">WidgetId (Cannot change)</label>
+    <input id="WidgetImageName"
+           name="WidgetImageName"
+           type="text"
+           class="form-control"
+           placeholder="{{widget._id}}"
+           disabled/>
+    <label for="WidgetImageURL">URL</label>
+    <input id="WidgetImageURL"
+           name="WidgetImageURL"
+           type="url"
+           class="form-control"
+           placeholder="URL"
+           [(ngModel)]="widget.url"/>
+    <label for="WidgetImageWidth">Width</label>
+    <input id="WidgetImageWidth"
+           name="WidgetImageWidth"
+           type="text"
+           class="form-control"
+           placeholder="100%"
+           [(ngModel)]="widget.width"/>
+  </form>
+
+  <label for="WidgetImageUpload">Upload</label>
+  <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+    <input  name="myFile"
+            id="WidgetImageUpload"
+            placeholder="No file chosen"
+            type="file" class="form-control"/>
+    <input  name="widgetId" value="{{widgetId}}"   style="display: none"/>
+    <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
+    <input  name="pageId" value="{{pageId}}"   style="display: none"/>
+    <input  name="userId" value="{{userId}}"   style="display: none"/>
+    <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+  </form>
+
+  <a class="btn btn-success btn-block"
+     (click)="updateWidget()">
+    Update
+  </a>
+  <a class="btn btn-danger btn-block"
+     (click)="deleteWidget()">
+    Delete
+  </a>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <a routerLink="/login"
+       class="navbar-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink="../../../../../../"
+       class="navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>
+
+
+
+
+
+<!--
 <label for="WidgetImageUpload">Upload</label>
 <input id="WidgetImageUpload"
-       type="file"
-       class="form-control"
-       placeholder="No file chosen"/>
-<a class="btn btn-primary btn-block" routerLink="./">
-  Upload Image
+     name="WidgetImageUpload"
+     type="file"
+     class="form-control"
+     placeholder="No file chosen"/>
+<a class="btn btn-primary btn-block" (click)="uploadImage()">
+Upload Image
 </a>
+-->
+
+
+

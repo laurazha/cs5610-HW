@@ -13,24 +13,32 @@
        class="alert alert-success">
     {{updateMsg}}
   </div>
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMsg}}
+  </div>
 
   <h2>User: {{user.username}}</h2>
+  <form>
   <label for="Username">Username</label>
   <input id="Username"
          type="text"
          class="form-control"
+         name="username"
          placeholder="username"
          [(ngModel)]="user.username"/>
   <label for="Password">Password</label>
   <input id="Password"
          type="password"
          class="form-control"
+         name="password"
          placeholder="password"
          [(ngModel)]="user.password"/>
   <label for="FirstName">First Name</label>
   <input id="FirstName"
          type="text"
          class="form-control"
+         name="firstname"
          placeholder="first name"
          [(ngModel)]="user.firstName"/>
   <label for="LastName">Last Name</label>
@@ -38,10 +46,14 @@
          type="text"
          class="form-control"
          placeholder="last name"
+         name="lastname"
          [(ngModel)]="user.lastName"/>
+  </form>
 
   <a class="btn btn-success btn-block" (click)="updateUser()">Update</a>
+  <a class="btn btn-warning btn-block" (click)="deleteUser()">Delete</a>
   <span class="help-block" *ngIf="updateFlag"></span>
+  <span class="help-block" *ngIf="errorFlag"></span>
   <a class="btn btn-primary btn-block" routerLink='/profile/{{user._id}}/website'>Websites</a>
   <a class="btn btn-danger btn-block" routerLink="/login">Logout</a>
 </div>

@@ -23,10 +23,14 @@ export class WidgetChooserComponent implements OnInit {
   }
 
   createWidget(type: string) {
-    let widget = new Widget((new Date()).getTime() + '', type,
-      this.pageId, null, null, null, null);
-    widget = this.widgetService.createWidget(this.pageId, widget);
-    this.router.navigate(['../', widget._id], { relativeTo: this.route });
+    let widget = new Widget('', type, this.pageId, null, null, null, null);
+    this.widgetService.createWidget(this.pageId, widget).subscribe(
+      (data: Widget) => {
+        widget = data;
+        this.router.navigate(['../', widget._id], { relativeTo: this.route });
+      },
+      (error: any) => console.log(error)
+    );
   }
 
 }

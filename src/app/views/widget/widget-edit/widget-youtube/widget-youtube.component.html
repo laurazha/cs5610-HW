@@ -1,18 +1,59 @@
-<label for="WidgetYoutubeName">WidgetId (Cannot change)</label>
-<input id="WidgetYoutubeName"
-       type="text"
-       class="form-control"
-       placeholder="{{widget._id}}"
-       disabled/>
-<label for="WidgetYoutubeURL">URL</label>
-<input id="WidgetYoutubeURL"
-       type="url"
-       class="form-control"
-       placeholder="URL"
-       [(ngModel)]="widget.url"/>
-<label for="WidgetYoutubeWidth">Width</label>
-<input id="WidgetYoutubeWidth"
-       type="text"
-       class="form-control"
-       placeholder="100%"
-       [(ngModel)]="widget.width"/>
+<nav class="navbar nav-grey navbar-fixed-top">
+  <div class = "container-fluid row">
+    <a routerLink="../"
+       class="navbar-text black-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text grey-text pull-left">
+      Widget Edit
+    </a>
+    <a (click)="updateWidget()"
+       class="black-text navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-ok"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container container-padding">
+  <label for="WidgetYoutubeName">WidgetId (Cannot change)</label>
+  <input id="WidgetYoutubeName"
+         type="text"
+         class="form-control"
+         placeholder="{{widget._id}}"
+         disabled/>
+  <label for="WidgetYoutubeURL">URL</label>
+  <input id="WidgetYoutubeURL"
+         type="url"
+         class="form-control"
+         placeholder="URL"
+         [(ngModel)]="widget.url"/>
+  <label for="WidgetYoutubeWidth">Width</label>
+  <input id="WidgetYoutubeWidth"
+         type="text"
+         class="form-control"
+         placeholder="100%"
+         [(ngModel)]="widget.width"/>
+
+  <a class="btn btn-success btn-block"
+     (click)="updateWidget()">
+    Update
+  </a>
+  <a class="btn btn-danger btn-block"
+     (click)="deleteWidget()">
+    Delete
+  </a>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <a routerLink="/login"
+       class="navbar-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink="../../../../../../"
+       class="navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {routing} from './app.routing';
+import {HttpModule} from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/user/login/login.component';
@@ -23,7 +24,9 @@ import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtub
 import {UserService} from './services/user.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
-import {SafePipe, WidgetService} from './services/widget.service.client';
+import {WidgetService} from './services/widget.service.client';
+import { SortableDirective } from '../../assignment/directives/sortable.directive';
+import {SafePipe} from '../../assignment/pipes/safe.pipe';
 
 
 @NgModule({
@@ -44,12 +47,14 @@ import {SafePipe, WidgetService} from './services/widget.service.client';
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
-    SafePipe
+    SafePipe,
+    SortableDirective
   ],
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

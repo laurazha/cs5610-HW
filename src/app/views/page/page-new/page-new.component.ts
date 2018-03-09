@@ -29,11 +29,13 @@ export class PageNewComponent implements OnInit {
   createPage() {
     this.pageName = this.pageForm.value.pageName;
     this.pageDescription = this.pageForm.value.pageDescription;
-    let page = new Page('', this.pageName, this.websiteId, this.pageDescription);
-    page = this.pageService.createPage(this.websiteId, page);
-    if (page) {
-      this.router.navigate(['../'], { relativeTo: this.route });
-    }
+    const page = new Page('', this.pageName, this.websiteId, this.pageDescription);
+    this.pageService.createPage(this.websiteId, page).subscribe(
+      (data: any) => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      },
+      (error: any) => console.log(error)
+    );
   }
 
 }

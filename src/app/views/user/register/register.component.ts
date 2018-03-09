@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   username: string;
   password: string;
   vpassword: string;
-  errorFlag: boolean;
+  errorFlag = false;
   errorMsg = 'Password mismatching!';
 
   constructor(private userService: UserService, private router: Router) { }
@@ -25,12 +25,14 @@ export class RegisterComponent implements OnInit {
     this.password = this.registerForm.value.password;
     this.vpassword = this.registerForm.value.vpassword;
     if (this.vpassword === this.password) {
-      this.errorFlag = false;
-      let user = new User('', this.username, this.password, '', '');
-      user = this.userService.createUser(user);
-      if (user) {
-        this.router.navigate(['/profile', user._id]);
-      }
+      const user = new User('', this.username, this.password, '', '');
+      this.userService.createUser(user).subscribe(
+        (data: User) => {
+          this.errorFlag = false;
+          this.router.navigate(['/profile', data._id]);
+        },
+        (error: any) => console.log(error)
+      );
     } else {
       this.errorFlag = true;
     }

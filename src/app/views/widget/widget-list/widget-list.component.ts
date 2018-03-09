@@ -9,7 +9,6 @@ import {WidgetService} from '../../../services/widget.service.client';
   styleUrls: ['./widget-list.component.css']
 })
 export class WidgetListComponent implements OnInit {
-  pageId: string;
   widgets: Widget[];
 
   constructor(
@@ -18,9 +17,18 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.pageId = params['pid'];
-      this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
+      this.widgetService.findWidgetsByPageId(params['pid']).subscribe(
+        (widgets: Widget[]) => {
+          this.widgets = widgets;
+        },
+        (error: any) => console.log(error)
+      );
     });
+    console.log('listing...');
   }
 
+  reorderWidgets(indexes) {
+    console.log('start: ' + indexes.startIndex);
+    console.log('stop: ' + indexes.endIndex);
+  }
 }

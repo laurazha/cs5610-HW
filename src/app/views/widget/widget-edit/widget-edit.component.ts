@@ -9,28 +9,25 @@ import {Widget} from '../../../models/widget.model.client';
   styleUrls: ['./widget-edit.component.css']
 })
 export class WidgetEditComponent implements OnInit {
-  widgetId: string;
+
   widget: Widget;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private widgetService: WidgetService) { }
+    private widgetService: WidgetService) {
+    this.widget = new Widget('', '', '', 1, '', '', '');
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.widgetId = params['wgid'];
-      this.widget = this.widgetService.findWidgetById(this.widgetId);
+      this.widgetService.findWidgetById(params['wgid']).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+        },
+        (error: any) => console.log(error)
+      );
     });
   }
 
-  updateWidget() {
-    this.widget = this.widgetService.updateWidget(this.widgetId, this.widget);
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
 
-  deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId);
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
 }

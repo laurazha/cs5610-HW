@@ -9,8 +9,7 @@ import {Page} from '../../../models/page.model.client';
   styleUrls: ['./page-list.component.css']
 })
 export class PageListComponent implements OnInit {
-  websiteId: string;
-  developerId: string;
+
   pages: Page[];
 
   constructor(
@@ -20,9 +19,12 @@ export class PageListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.websiteId = params['wid'];
-      this.developerId = params['userId'];
-      this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
+      this.pageService.findPageByWebsiteId(params['wid']).subscribe(
+        (pages: Page[]) => {
+          this.pages = pages;
+        },
+        (error: any) => console.log(error)
+      );
     });
   }
 
