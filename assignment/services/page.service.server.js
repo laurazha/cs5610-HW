@@ -65,4 +65,4 @@ module.exports = function (app) {
     }), 1);
     res.json({});
   }
-}
+};

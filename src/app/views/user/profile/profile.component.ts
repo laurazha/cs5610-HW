@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
           console.log(this.user);
           this.user = user;
         },
-        (error: any) => console.log(error)
+        (error: any) => console.log('PROFILE:\n' + error)
       );
     });
   }
