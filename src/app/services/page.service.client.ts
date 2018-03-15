@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Page} from '../models/page.model.client';
 import {Http, Response} from '@angular/http';
-import {environment} from '../../environments/environment';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable()
 export class PageService {

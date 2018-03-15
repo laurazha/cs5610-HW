@@ -42,7 +42,7 @@ export class UserService {
   deleteUserInServer(userId: String) {
     return this._http.delete(this.baseUrl + '/api/user/' + userId)
       .map((response: Response) => {
-        return response.json();
+        return response;
       });
   }
 }
