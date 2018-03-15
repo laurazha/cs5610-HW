@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
       this.userId = params['userId'];
       this.userService.findUserById(this.userId).subscribe(
         (user: User) => {
+          console.log(this.user);
           this.user = user;
         },
         (error: any) => console.log(error)
@@ -39,8 +40,9 @@ export class ProfileComponent implements OnInit {
 
   updateUser() {
     if (this.user.username && this.user.password) {
-      this.userService.updateUser(this.userId, this.user).subscribe(
+      this.userService.updateUserInServer(this.userId, this.user).subscribe(
         (user: User) => {
+          console.log(this.user);
           this.user = user;
           this.updateFlag = true;
         },
@@ -51,7 +53,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.userId).subscribe(
+    this.userService.deleteUserInServer(this.userId).subscribe(
       () => {
         this.router.navigate(['/login']);
       },

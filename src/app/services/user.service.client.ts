@@ -31,14 +31,14 @@ export class UserService {
       });
   }
 
-  updateUser(userId: string, user: User) {
+  updateUserInServer(userId: string, user: User) {
     return this._http.put(this.baseUrl + '/api/user/' + userId, user)
       .map((response: Response) => {
         return response.json();
       });
   }
 
-  deleteUser(userId: String) {
+  deleteUserInServer(userId: String) {
     return this._http.delete(this.baseUrl + '/api/user/' + userId)
       .map((response: Response) => {
         return response.json();

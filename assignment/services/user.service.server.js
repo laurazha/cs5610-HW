@@ -24,28 +24,17 @@ module.exports = function (app) {
   function findUsers(req, res) {
     var username = req.query.username;
     var password = req.query.password;
+    var user = null;
     if (username && password) {
-      var userByCredentials =  users.find( function (user) {
+      user =  users.find( function (user) {
         return user.username === username && user.password === password;
       });
-      if (userByCredentials) {
-        res.json(userByCredentials);
-      } else {
-        res.json({});
-      }
-      return;
     } else if (username) {
-      var userByUsername = users.find(function(user) {
+      user = users.find(function(user) {
         return user.username === username;
       });
-      if (userByUsername) {
-        res.json(userByUsername);
-      } else {
-        res.json({});
-      }
-      return;
     }
-    res.json(users);  // show all users for admin and easy testing
+    res.json(user);
   }
 
   function findUserById(req, res) {
@@ -58,18 +47,19 @@ module.exports = function (app) {
 
   function updateUser(req, res) {
     var userId = req.params["userId"];
-    var newUser = req.body;
+    var user = req.body;
 
     for (var i = 0; i < users.length; i++) {
       if (users[i]._id === userId) {
-        users[i].username = newUser.username;
-        users[i].password = newUser.password;
-        users[i].firstName = newUser.firstName;
-        users[i].lastName = newUser.lastName;
-        res.json(users[i]);
+        users[i].username = user.username;
+        users[i].password = user.password;
+        users[i].firstName = user.firstName;
+        users[i].lastName = user.lastName;
+        res.status(200).send(user);
         return;
       }
     }
+    res.status(404).send("not found!");
   }
 
   function deleteUser(req, res) {
@@ -77,7 +67,7 @@ module.exports = function (app) {
     users.splice(users.findIndex(function(user) {
       return user._id === userId;
     }), 1);
-    res.json({});
+    res.send(200);
   }
 
 };
