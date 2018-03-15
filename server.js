@@ -8,10 +8,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
-/*
+
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/assets/uploads', express.static(path.join(__dirname, '/src/assets/uploads')));
-*/
+
 
 //CORS
 app.use(function(reg, res, next){
