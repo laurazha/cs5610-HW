@@ -27,9 +27,6 @@
         </a>
       </div>
       <div [ngSwitch]="wid.widgetType">
-        <div *ngSwitchCase="'HTML'">
-          <p>{{wid.text}}</p>
-        </div>
         <div *ngSwitchCase="'HEADING'">
           <div [ngSwitch]="wid.size">
             <div *ngSwitchCase="'1'">
@@ -56,14 +53,25 @@
           </div>
         </div>
         <div *ngSwitchCase="'IMAGE'">
-          <img class="img-responsive widget-image" width="{{wid.width}}"
+          <img class="img-responsive widget-image" [width]= "wid.width"
                [src]="wid.url"/>
         </div>
         <div *ngSwitchCase="'YOUTUBE'">
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe width="{{wid.width}}" height="315" [src]="wid.url | safe"
+            <iframe width="560" height="315" [src]="wid.url | safe"
                     frameborder="0" allowfullscreen></iframe>
           </div>
+        </div>
+        <div *ngSwitchCase="'HTML'" [innerHTML]="wid.text"></div>
+        <div *ngSwitchCase="'TEXT'">
+          <div *ngIf="wid.formatted">
+            <quill-editor [(ngModel)]="wid.text"></quill-editor>
+          </div>
+          <input *ngIf="!wid.formatted && (!wid.size || wid.size===1)"
+                 placeholder="{{wid.placeholder}}" class="form-control"/>
+          <textarea *ngIf="!wid.formatted && (wid.size > 1)"
+                    rows="{{wid.size}}" placeholder="{{wid.placeholder}}"
+                    class="form-control">{{wid.text}}</textarea>
         </div>
       </div>
     </li>

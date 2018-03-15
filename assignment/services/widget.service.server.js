@@ -5,6 +5,7 @@ module.exports = function (app) {
   app.get("/api/widget/:widgetId", findWidgetById);
   app.put("/api/widget/:widgetId", updateWidget);
   app.delete("/api/widget/:widgetId", deleteWidget);
+  app.put("/api/page/:pageId/widget", reorderWidgets);
 
   var multer = require('multer'); // npm install multer --save
   var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
@@ -30,7 +31,7 @@ module.exports = function (app) {
     {"_id": "222", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum"},
     {
       "_id": "333", "widgetType": "IMAGE", "pageId": "654", "width": "100%",
-      "url": "https://cdn.pixabay.com/photo/2016/02/17/15/37/laptop-1205256_1280.jpg"
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Alpy_Landscape_wikiskaner_27.jpg"
     },
     {"_id": "444", "widgetType": "HTML", "pageId": "654", "text": "Lorem ipsum"},
     {"_id": "555", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum"},
@@ -38,29 +39,28 @@ module.exports = function (app) {
       "_id": "666", "widgetType": "YOUTUBE", "pageId": "654", "width": "100%",
       "url": "https://www.youtube.com/embed/k2qgadSvNyU"
     },
-    {"_id": "777", "widgetType": "HTML", "pageId": "654", "text": "Lorem ipsum"}
+    {"_id": "777", "widgetType": "HTML", "pageId": "654",
+      "text": "<strong>Below is a formatted TEXT widget.</strong>"},
+    {"_id": "888", "widgetType": "TEXT", "pageId": "654", "text": "TEXT text example", "size:": 2,
+      "placeholder": "TEXT placeholder example", "formatted": true}
   ];
 
+  // var baseUrl = 'http://localhost:3100';
+  var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
 
   function uploadImage(req, res) {
-    console.log("uploading");
     var userId        = req.body.userId;
     var websiteId     = req.body.websiteId;
     var pageId        = req.body.pageId;
     var widgetId      = req.body.widgetId;
     var myFile        = req.file;
 
-    console.log('userId: ' + userId);
-    console.log('widgetId: ' + widgetId);
-    console.log('websiteId: ' + websiteId);
-    console.log('pageId: ' + pageId);
-
+    var callbackUrl = baseUrl+"/profile/"+userId+
+      "/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
     if (myFile === null) {
-      console.log('file not exist');
-      res.redirect('http://localhost:4200/profile/'+userId+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId);
+      res.redirect(callbackUrl);
       return;
     }
-
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
     var path          = myFile.path;         // full path of uploaded file
@@ -68,21 +68,40 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    console.log('filename: ' + filename);
-    console.log('mimetype: ' + mimetype);
-    console.log('path: ' + path);
-    console.log('destination: ' + destination);
-
     for (const i in widgets) {
       if (widgets[i]._id === widgetId) {
-        widgets[i].url = '/assets/uploads/'+filename;
-        // res.json(widgets[i]);
+        widgets[i].url = baseUrl+'/assets/uploads/'+filename;
         break;
       }
     }
 
-    var callbackUrl   = "http://localhost:4200/profile/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/";
     res.redirect(callbackUrl);
+  }
+
+  function reorderWidgets(req, res) {
+    var pageId = req.params.pageId;
+    var startIndex = parseInt(req.query.initial);
+    var endIndex = parseInt(req.query.final);
+
+    var widgetsByPageId = widgets.filter(function (widget) {
+      return widget.pageId === pageId;
+    });
+    var widgetToMove = widgetsByPageId[startIndex];
+    var startIndexInWidgets = widgets.findIndex((function(wid) {
+      return wid._id === widgetToMove._id;}));
+    var endIndexInWidgets = widgets.findIndex((function(wid) {
+      return wid._id === widgetsByPageId[endIndex]._id;}));
+
+    if (startIndex <= endIndex) {
+      // move down to after-wid2
+      widgets.splice(startIndexInWidgets, 1);
+      widgets.splice(endIndexInWidgets, 0, widgetToMove);
+    } else {
+      // move up to before-wid2
+      widgets.splice(startIndexInWidgets, 1);
+      widgets.splice(endIndexInWidgets - 1, 0, widgetToMove);
+    }
+    res.json({});
   }
 
   function createWidget(req, res) {
@@ -121,6 +140,7 @@ module.exports = function (app) {
         widgets[i].text = widget.text;
         widgets[i].width = widget.width;
         widgets[i].url = widget.url;
+        widgets[i].placeholder = widget.placeholder;
         res.json(widgets[i]);
         return;
       }

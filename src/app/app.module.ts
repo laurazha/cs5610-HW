@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {routing} from './app.routing';
 import {HttpModule} from '@angular/http';
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/user/login/login.component';
@@ -27,6 +28,8 @@ import {PageService} from './services/page.service.client';
 import {WidgetService} from './services/widget.service.client';
 import { SortableDirective } from '../../assignment/directives/sortable.directive';
 import {SafePipe} from '../../assignment/pipes/safe.pipe';
+import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
+import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
 
 
 @NgModule({
@@ -48,13 +51,16 @@ import {SafePipe} from '../../assignment/pipes/safe.pipe';
     WidgetImageComponent,
     WidgetYoutubeComponent,
     SafePipe,
-    SortableDirective
+    SortableDirective,
+    WidgetHtmlComponent,
+    WidgetTextComponent,
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
-    HttpModule
+    HttpModule,
+    QuillEditorModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

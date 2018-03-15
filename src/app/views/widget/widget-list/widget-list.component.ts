@@ -10,6 +10,7 @@ import {WidgetService} from '../../../services/widget.service.client';
 })
 export class WidgetListComponent implements OnInit {
   widgets: Widget[];
+  pageId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -17,18 +18,20 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.widgetService.findWidgetsByPageId(params['pid']).subscribe(
+      this.pageId = params['pid'];
+      this.widgetService.findWidgetsByPageId(this.pageId).subscribe(
         (widgets: Widget[]) => {
           this.widgets = widgets;
         },
         (error: any) => console.log(error)
       );
     });
-    console.log('listing...');
   }
 
   reorderWidgets(indexes) {
-    console.log('start: ' + indexes.startIndex);
-    console.log('stop: ' + indexes.endIndex);
+    this.widgetService.reorderWidgetsInServer(this.pageId, indexes).subscribe(
+      () => {},
+      (error: any) => console.log(error)
+    );
   }
 }

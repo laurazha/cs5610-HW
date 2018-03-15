@@ -20,7 +20,8 @@ export class WidgetImageComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private widgetService: WidgetService) {
-    this.widget = new Widget('', '', '', 1, '', '', '');
+    this.widget = new Widget('', '', '',
+      1, '', '', '', '', false);
   }
 
   ngOnInit() {
@@ -36,13 +37,11 @@ export class WidgetImageComponent implements OnInit {
         (error: any) => console.log(error)
       );
     });
-    console.log('init url: ' + this.widget.url);
   }
 
   updateWidget() {
     this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
       (widget: Widget) => {
-        console.log('update: ' + widget);
         this.widget = widget;
         this.router.navigate(['../'], {relativeTo: this.route});
       },

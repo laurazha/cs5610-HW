@@ -6,6 +6,8 @@ export class Widget {
   text: string;
   width: string;
   url: string;
+  placeholder: string;
+  formatted: boolean;
 
   constructor(id: string,
               widgetType: string,
@@ -13,7 +15,9 @@ export class Widget {
               size: number,
               text: string,
               width: string,
-              url: string) {
+              url: string,
+              placeholder: string,
+              formatted: boolean) {
     this._id = id;
     this.widgetType = widgetType;
     this.pageId = pageId;
@@ -21,5 +25,7 @@ export class Widget {
     this.text = text;
     this.width = width;
     this.url = url;
+    this.placeholder = placeholder;
+    this.formatted = formatted;
   }
 }

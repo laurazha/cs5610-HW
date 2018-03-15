@@ -6,39 +6,34 @@
     </a>
     <a routerLink="./"
        class="navbar-text grey-text pull-left">
-      Choose Widget
+      Widget Edit
+    </a>
+    <a (click)="updateWidget()"
+       class="black-text navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-ok"></span>
     </a>
   </div>
 </nav>
 
-<div class="container-fluid container-padding">
-  <ul class="ul-no-style">
-    <li class="li-margin">
-      <a (click)="createWidget('HEADING')">
-        Header
-      </a>
-    </li>
-    <li class="li-margin">
-      <a (click)="createWidget('IMAGE')">
-        Image
-      </a>
-    </li>
-    <li class="li-margin">
-      <a (click)="createWidget('YOUTUBE')">
-        YouTube
-      </a>
-    </li>
-    <li class="li-margin">
-      <a (click)="createWidget('HTML')">
-        HTML
-      </a>
-    </li>
-    <li class="li-margin">
-      <a (click)="createWidget('TEXT')">
-        TEXT
-      </a>
-    </li>
-  </ul>
+<div class="container container-padding">
+  <label for="WidgetHtmlName">WidgetId (Cannot change)</label>
+  <input id="WidgetHtmlName"
+         type="text"
+         class="form-control"
+         placeholder="{{widget._id}}"
+         disabled/>
+  <label>HTML</label>
+  <quill-editor [(ngModel)]="widget.text"></quill-editor>
+  <br/>
+
+  <a class="btn btn-success btn-block"
+     (click)="updateWidget()">
+    Update
+  </a>
+  <a class="btn btn-danger btn-block"
+     (click)="deleteWidget()">
+    Delete
+  </a>
 </div>
 
 <nav class="navbar navbar-fixed-bottom nav-grey">
@@ -53,3 +48,6 @@
     </a>
   </div>
 </nav>
+
+
+

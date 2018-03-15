@@ -38,11 +38,18 @@ export class WidgetService {
       });
   }
 
-  deleteWidget(widgetId) {
+  deleteWidget(widgetId: string) {
     return this._http.delete(this.baseUrl + '/api/widget/' + widgetId)
       .map((response: Response) => {
         return response.json();
       });
   }
 
+  reorderWidgetsInServer(pageId: string, indexes) {
+    return this._http.put(this.baseUrl + '/api/page/' + pageId +
+      '/widget?initial=' + indexes.startIndex + '&final=' + indexes.endIndex, '')
+      .map((response: Response) => {
+        return response.json();
+    });
+  }
 }

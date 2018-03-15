@@ -1,0 +1,74 @@
+<nav class="navbar nav-grey navbar-fixed-top">
+  <div class = "container-fluid row">
+    <a routerLink="../"
+       class="navbar-text black-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a routerLink="./"
+       class="navbar-text grey-text pull-left">
+      Widget Edit
+    </a>
+    <a (click)="updateWidget()"
+       class="black-text navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-ok"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container container-padding">
+  <label for="WidgetTextName">WidgetId (Cannot change)</label>
+  <input id="WidgetTextName"
+         type="text"
+         class="form-control"
+         placeholder="{{widget._id}}"
+         disabled/>
+  <label for="WidgetTextText">Text</label>
+  <input id="WidgetTextText"
+         type="text"
+         class="form-control"
+         placeholder="Text"
+         [(ngModel)]="widget.text"/>
+  <label for="WidgetTextRows">Rows</label>
+  <input id="WidgetTextRows"
+         type="number"
+         class="form-control"
+         placeholder="3"
+         [(ngModel)]="widget.size"/>
+  <label for="WidgetTextPlaceholder">Placeholder</label>
+  <input id="WidgetTextPlaceholder"
+         type="text"
+         class="form-control"
+         placeholder="Placeholder"
+         [(ngModel)]="widget.placeholder"/>
+  <div class="form-control">
+    Formatted
+    <input [(ngModel)]="widget.formatted"
+           class="pull-right"
+           type="checkbox"/>
+  </div>
+  <br/>
+
+  <a class="btn btn-success btn-block"
+     (click)="updateWidget()">
+    Update
+  </a>
+  <a class="btn btn-danger btn-block"
+     (click)="deleteWidget()">
+    Delete
+  </a>
+</div>
+
+<nav class="navbar navbar-fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <a routerLink="/login"
+       class="navbar-text pull-left icon-padding">
+      <span class="glyphicon glyphicon-home"></span>
+    </a>
+    <a routerLink="../../../../../../"
+       class="navbar-text pull-right icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>
+
+
