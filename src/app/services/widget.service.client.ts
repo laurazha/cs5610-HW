@@ -30,14 +30,14 @@ export class WidgetService {
       });
   }
 
-  updateWidget(widgetId: string, widget: Widget) {
+  updateWidgetInServer(widgetId: string, widget: Widget) {
     return this._http.put(this.baseUrl + '/api/widget/' + widgetId, widget)
       .map((response: Response) => {
         return response.json();
       });
   }
 
-  deleteWidget(widgetId: string) {
+  deleteWidgetInServer(widgetId: string) {
     return this._http.delete(this.baseUrl + '/api/widget/' + widgetId)
       .map((response: Response) => {
         return response.json();

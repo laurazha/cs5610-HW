@@ -40,7 +40,7 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   updateWebsite() {
-    this.websiteService.updateWebsite(this.websiteId, this.website).subscribe(
+    this.websiteService.updateWebsiteInServer(this.websiteId, this.website).subscribe(
       (website: Website) => {
         this.website = website;
         this.router.navigate(['../'], { relativeTo: this.route });
@@ -50,7 +50,7 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   deleteWebsite() {
-    this.websiteService.deleteWebsite(this.websiteId).subscribe(
+    this.websiteService.deleteWebsiteInServer(this.websiteId).subscribe(
       () => {
         this.router.navigate(['../'], { relativeTo: this.route });
       },

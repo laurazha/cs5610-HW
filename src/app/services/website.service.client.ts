@@ -31,14 +31,14 @@ export class WebsiteService {
       });
   }
 
-  updateWebsite(websiteId: string, website: Website) {
+  updateWebsiteInServer(websiteId: string, website: Website) {
     return this._http.put(this.baseUrl + '/api/website/' + websiteId, website)
       .map((response: Response) => {
         return response.json();
       });
   }
 
-  deleteWebsite(websiteId: string) {
+  deleteWebsiteInServer(websiteId: string) {
     return this._http.delete(this.baseUrl + '/api/website/' + websiteId)
       .map((response: Response) => {
         return response.json();
