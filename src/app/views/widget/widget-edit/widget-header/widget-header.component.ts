@@ -32,7 +32,7 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget() {
-    this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
+    this.widgetService.updateWidgetInServer(this.widgetId, this.widget).subscribe(
       (widget: Widget) => {
         this.widget = widget;
         this.router.navigate(['../'], { relativeTo: this.route });
@@ -42,7 +42,7 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId).subscribe(
+    this.widgetService.deleteWidgetInServer(this.widgetId).subscribe(
       () => {
         this.router.navigate(['../'], { relativeTo: this.route });
       },
