@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Widget} from '../../../../models/widget.model.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../../../environments/environment';
+import {environment} from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-widget-image',
