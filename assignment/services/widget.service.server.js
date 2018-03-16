@@ -141,6 +141,7 @@ module.exports = function (app) {
         widgets[i].width = widget.width;
         widgets[i].url = widget.url;
         widgets[i].placeholder = widget.placeholder;
+        widgets[i].formatted = widget.formatted;
         res.json(widgets[i]);
         return;
       }
