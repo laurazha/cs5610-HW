@@ -40,14 +40,18 @@
          class="form-control"
          placeholder="Placeholder"
          [(ngModel)]="widget.placeholder"/>
-  <div class="form-control">
-    Formatted
-    <input [(ngModel)]="widget.formatted"
-           class="pull-right"
-           type="checkbox"/>
+  <p></p>
+  <div class="input-group">
+    <label for="formatted" class="form-control">Formatted</label>
+    <span class="input-group-addon">
+        <input [(ngModel)]="widget.formatted"
+               id="formatted"
+               class="pull-right"
+               type="checkbox"/>
+    </span>
   </div>
-  <br/>
 
+  <br/>
   <a class="btn btn-success btn-block"
      (click)="updateWidget()">
     Update

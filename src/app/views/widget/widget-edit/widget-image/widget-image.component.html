@@ -52,8 +52,12 @@
     <input  name="userId" value="{{userId}}"   style="display: none"/>
     <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
   </form>
-  <br/>
+  <p></p>
 
+  <a class="btn btn-warning btn-block"
+     routerLink="flickr">
+    Search on Flickr
+  </a>
   <a class="btn btn-success btn-block"
      (click)="updateWidget()">
     Update
@@ -76,22 +80,5 @@
     </a>
   </div>
 </nav>
-
-
-
-
-
-<!--
-<label for="WidgetImageUpload">Upload</label>
-<input id="WidgetImageUpload"
-     name="WidgetImageUpload"
-     type="file"
-     class="form-control"
-     placeholder="No file chosen"/>
-<a class="btn btn-primary btn-block" (click)="uploadImage()">
-Upload Image
-</a>
--->
-
 
 

@@ -45,8 +45,8 @@ module.exports = function (app) {
       "placeholder": "TEXT placeholder example", "formatted": true}
   ];
 
-  // var baseUrl = 'http://localhost:3100';
-  var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
+  var baseUrl = 'http://localhost:3100';
+  // var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
 
   function uploadImage(req, res) {
     var userId        = req.body.userId;

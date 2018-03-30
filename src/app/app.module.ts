@@ -4,7 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {routing} from './app.routing';
 import {HttpModule} from '@angular/http';
 import { QuillEditorModule } from 'ngx-quill-editor';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/user/login/login.component';
 import { ProfileComponent } from './views/user/profile/profile.component';
@@ -21,7 +20,6 @@ import { WidgetListComponent } from './views/widget/widget-list/widget-list.comp
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
-
 import {UserService} from './services/user.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
@@ -30,6 +28,8 @@ import { SortableDirective } from '../../assignment/directives/sortable.directiv
 import {SafePipe} from '../../assignment/pipes/safe.pipe';
 import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
 import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
+import { FlickrImageSearchComponent } from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import {FlickrService} from './services/flickr.service.client';
 
 
 @NgModule({
@@ -54,6 +54,7 @@ import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widg
     SortableDirective,
     WidgetHtmlComponent,
     WidgetTextComponent,
+    FlickrImageSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,7 @@ import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widg
     HttpModule,
     QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
