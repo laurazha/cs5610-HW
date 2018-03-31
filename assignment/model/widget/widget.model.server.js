@@ -18,7 +18,7 @@ function createWidget(pageId, widget)  {
 
 function findAllWidgetsForPage(pageId) {
   return WidgetModel.find({_page: pageId})
-    .sort('field position');
+    .sort({position: 1});
 }
 
 function findWidgetById(widgetId) {
@@ -35,12 +35,22 @@ function deleteWidget(widgetId) {
 
 function reassignPosition(pageId) {
   var n = 0;
+  return findAllWidgetsForPage(pageId).then(
+    function(widgets) {
+      widgets.forEach(function (widget) {
+        widget.position = n++;
+        widget.save();
+      });
+    }
+  )
+  /*
   return WidgetModel.find({_page:pageId}, function (err, widgets) {
       widgets.forEach(function (widget) {
         widget.position = n++;
         widget.save();
       });
     });
+    */
 }
 
 function reorderWidget(pageId, start, end) {
