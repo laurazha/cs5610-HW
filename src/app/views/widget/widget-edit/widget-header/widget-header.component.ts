@@ -16,8 +16,8 @@ export class WidgetHeaderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private widgetService: WidgetService) {
-    this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);  }
+    this.widget = new Widget(null, 'HEADING', null,
+      1, null, null, null, null, false, 0);  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

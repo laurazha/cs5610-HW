@@ -18,7 +18,7 @@ export class WidgetTextComponent implements OnInit {
     private router: Router,
     private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);
+      1, '', '', '', '', false, 0);
   }
 
   ngOnInit() {

@@ -26,7 +26,7 @@
           <span class="glyphicon glyphicon-cog"></span>
         </a>
       </div>
-      <div [ngSwitch]="wid.widgetType">
+      <div [ngSwitch]="wid.type">
         <div *ngSwitchCase="'HEADING'">
           <div [ngSwitch]="wid.size">
             <div *ngSwitchCase="'1'">
@@ -57,8 +57,8 @@
                [src]="wid.url"/>
         </div>
         <div *ngSwitchCase="'YOUTUBE'">
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe width="560" height="315" [src]="wid.url | safe"
+          <div class="embed-responsive embed-responsive-16by9 youtube-widget">
+            <iframe [width]="wid.width" [src]="wid.url | safe"
                     frameborder="0" allowfullscreen></iframe>
           </div>
         </div>

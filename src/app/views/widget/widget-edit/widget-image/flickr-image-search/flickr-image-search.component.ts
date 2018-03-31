@@ -21,7 +21,7 @@ export class FlickrImageSearchComponent implements OnInit {
               private flickrService: FlickrService,
               private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);
+      1, '', '', '', '', false, 0);
   }
 
   searchPhotos() {

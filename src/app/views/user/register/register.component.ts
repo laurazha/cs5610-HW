@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     this.password = this.registerForm.value.password;
     this.vpassword = this.registerForm.value.vpassword;
     if (this.vpassword === this.password) {
-      const user = new User('', this.username, this.password, '', '');
+      const user = new User(null, this.username, this.password, '', '', '');
       this.userService.createUser(user).subscribe(
         (data: User) => {
           this.errorFlag = false;

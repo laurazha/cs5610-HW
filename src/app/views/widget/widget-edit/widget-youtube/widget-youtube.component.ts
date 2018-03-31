@@ -16,7 +16,7 @@ export class WidgetYoutubeComponent implements OnInit {
               private router: Router,
               private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);
+      1, '', '', '', '', false, 0);
   }
 
   ngOnInit() {
@@ -34,7 +34,6 @@ export class WidgetYoutubeComponent implements OnInit {
   updateWidget() {
     this.widgetService.updateWidgetInServer(this.widgetId, this.widget).subscribe(
       (widget: Widget) => {
-        console.log(widget);
         this.widget = widget;
         this.router.navigate(['../'], {relativeTo: this.route});
       },

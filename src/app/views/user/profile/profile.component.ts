@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute) {
-    this.user = new User('', '', '', '', '');
+    this.user = new User(null, '', '', '', '', '');
   }
 
   ngOnInit() {
