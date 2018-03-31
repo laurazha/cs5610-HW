@@ -18,8 +18,7 @@ export class Widget {
               width: string,
               url: string,
               placeholder: string,
-              formatted: boolean,
-              position: number) {
+              formatted: boolean) {
     this._id = id;
     this.type = type;
     this.pageId = pageId;
@@ -29,6 +28,5 @@ export class Widget {
     this.url = url;
     this.placeholder = placeholder;
     this.formatted = formatted;
-    this.position = position;
   }
 }

@@ -18,7 +18,7 @@ export class WidgetHtmlComponent implements OnInit {
     private router: Router,
     private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false, 0);
+      1, '', '', '', '', false);
   }
 
   ngOnInit() {

@@ -21,7 +21,7 @@ export class FlickrImageSearchComponent implements OnInit {
               private flickrService: FlickrService,
               private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false, 0);
+      1, '', '', '', '', false);
   }
 
   searchPhotos() {
@@ -29,12 +29,10 @@ export class FlickrImageSearchComponent implements OnInit {
       .searchPhotos(this.searchText)
       .subscribe(
         (data: any) => {
-          console.log(data);
           let val = data._body;
           val = val.replace('jsonFlickrApi(', '');
           val = val.substring(0, val.length - 1);
           val = JSON.parse(val);
-          console.log(val);
           this.photos = val.photos;
         }
       );

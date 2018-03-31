@@ -49,7 +49,7 @@ module.exports = function (app) {
     var pageId = req.params["pageId"];
     var page = req.body;
     pageModel.updatePage(pageId, page)
-      .then(function(page) {});
+      .then(function(data) {});
     pageModel.findPageById(pageId)
       .then(function(page) {
         res.json(page);

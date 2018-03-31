@@ -24,7 +24,7 @@ export class WidgetChooserComponent implements OnInit {
 
   createWidget(type: string) {
     let widget = new Widget(null, type, this.pageId,
-      null, null, null, null, null, null, 0);
+      null, null, null, null, null, null);
     this.widgetService.createWidget(this.pageId, widget).subscribe(
       (data: Widget) => {
         widget = data;
