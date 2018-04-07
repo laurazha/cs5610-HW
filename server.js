@@ -34,8 +34,10 @@ app.use('/assets/uploads', express.static(path.join(__dirname, '/src/assets/uplo
 
 
 //CORS
+var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com/';
+// var baseUrl = "http://localhost:4200";
 app.use(function(reg, res, next){
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Origin", baseUrl);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
   res.header('Access-Control-Allow-Credentials', "true");
