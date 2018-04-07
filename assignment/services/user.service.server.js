@@ -16,8 +16,8 @@ module.exports = function (app) {
   app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: baseUrl+'/profile',
-      failureRedirect: baseUrl+'/login'
+      successRedirect: '/profile',
+      failureRedirect: '/#/login'
     }));
 
 
@@ -67,7 +67,7 @@ module.exports = function (app) {
 
   // config facebook strategy
   var fbCallbackUrl = baseUrl + '/auth/facebook/callback';
-  var fbAppId = '2041939546020825';
+  var fbAppId = '';
   var fbSecret = '';
 
   if (process.env.FACEBOOK_CALLBACK_URL) {
