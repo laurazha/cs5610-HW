@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top nav-blue">
   <div class = "container-fluid row">
-    <a routerLink='/profile/{{user._id}}' class="navbar-text white-text pull-left">Profile</a>
+    <a routerLink='/profile' class="navbar-text white-text pull-left">Profile</a>
     <a (click)="updateUser()" class="navbar-text white-text pull-right icon-padding">
       <span class="glyphicon glyphicon-ok"></span>
     </a>
@@ -61,7 +61,7 @@
   <a class="btn btn-warning btn-block" (click)="deleteUser()">Delete</a>
   <span class="help-block" *ngIf="updateFlag"></span>
   <span class="help-block" *ngIf="errorFlag"></span>
-  <a class="btn btn-primary btn-block" routerLink='/profile/{{user._id}}/website'>Websites</a>
-  <a class="btn btn-danger btn-block" routerLink="/login">Logout</a>
+  <a class="btn btn-primary btn-block" routerLink='/profile/website'>Websites</a>
+  <a class="btn btn-danger btn-block" (click)="logout()">Logout</a>
 </div>
 

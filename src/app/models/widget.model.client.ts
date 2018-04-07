@@ -8,7 +8,7 @@ export class Widget {
   url: string;
   placeholder: string;
   formatted: boolean;
-  position: number;
+  name: string;
 
   constructor(id: string,
               type: string,
@@ -18,7 +18,8 @@ export class Widget {
               width: string,
               url: string,
               placeholder: string,
-              formatted: boolean) {
+              formatted: boolean,
+              name: string) {
     this._id = id;
     this.type = type;
     this.pageId = pageId;
@@ -28,5 +29,6 @@ export class Widget {
     this.url = url;
     this.placeholder = placeholder;
     this.formatted = formatted;
+    this.name = name;
   }
 }

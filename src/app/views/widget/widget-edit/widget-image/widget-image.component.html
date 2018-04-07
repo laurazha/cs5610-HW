@@ -17,13 +17,17 @@
 
 <div class="container container-padding">
   <form>
-    <label for="WidgetImageName">WidgetId (Cannot change)</label>
+    <div *ngIf="errorFlag"
+         class="alert alert-danger">
+      {{errorMsg}}
+    </div>
+    <label for="WidgetImageName">Widget Name</label>
     <input id="WidgetImageName"
            name="WidgetImageName"
            type="text"
            class="form-control"
-           placeholder="{{widget._id}}"
-           disabled/>
+           placeholder="name"
+           [(ngModel)]="widget.name"/>
     <label for="WidgetImageURL">URL</label>
     <input id="WidgetImageURL"
            name="WidgetImageURL"
@@ -74,7 +78,7 @@
        class="navbar-text pull-left icon-padding">
       <span class="glyphicon glyphicon-home"></span>
     </a>
-    <a routerLink="../../../../../../"
+    <a routerLink="/profile"
        class="navbar-text pull-right icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>

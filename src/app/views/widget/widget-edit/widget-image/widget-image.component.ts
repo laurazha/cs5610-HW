@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Widget} from '../../../../models/widget.model.client';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../../../environments/environment.prod';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-image',
@@ -16,12 +16,14 @@ export class WidgetImageComponent implements OnInit {
   websiteId: string;
   pageId: string;
   baseUrl: string;
+  errorFlag = false;
+  errorMsg = 'Widget name cannot be empty!';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);
+      1, '', '', '', '', false, null);
   }
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class WidgetImageComponent implements OnInit {
   }
 
   updateWidget() {
+    if (!this.widget.name) {
+      this.errorFlag = true;
+      return;
+    }
     this.widgetService.updateWidgetInServer(this.widgetId, this.widget).subscribe(
       (widget: Widget) => {
         this.widget = widget;

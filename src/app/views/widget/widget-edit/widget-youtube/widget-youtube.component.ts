@@ -11,12 +11,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class WidgetYoutubeComponent implements OnInit {
   widgetId: string;
   widget: Widget;
+  errorFlag = false;
+  errorMsg = 'Widget name cannot be empty!';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);
+      1, '', '', '', '', false, null);
   }
 
   ngOnInit() {
@@ -32,6 +34,10 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   updateWidget() {
+    if (!this.widget.name) {
+      this.errorFlag = true;
+      return;
+    }
     this.widgetService.updateWidgetInServer(this.widgetId, this.widget).subscribe(
       (widget: Widget) => {
         this.widget = widget;

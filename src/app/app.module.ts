@@ -30,6 +30,8 @@ import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widg
 import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
 import { FlickrImageSearchComponent } from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 import {FlickrService} from './services/flickr.service.client';
+import {SharedService} from './services/shared.service';
+import {AuthGuard} from './services/auth-guard.service';
 
 
 @NgModule({
@@ -63,7 +65,7 @@ import {FlickrService} from './services/flickr.service.client';
     HttpModule,
     QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService, SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

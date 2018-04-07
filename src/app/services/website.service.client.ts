@@ -1,13 +1,15 @@
-import { Website } from '../models/website.model.client';
+import {Website} from '../models/website.model.client';
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {environment} from '../../environments/environment.prod';
+import {environment} from '../../environments/environment';
 
 
 @Injectable()
 export class WebsiteService {
 
-  constructor(private _http: Http) {}
+  constructor(private _http: Http) {
+  }
+
   baseUrl = environment.baseUrl;
 
   createWebsite(userId: string, website: Website) {

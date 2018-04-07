@@ -15,16 +15,23 @@ export class FlickrImageSearchComponent implements OnInit {
   photos: [any];
   widgetId: string;
   widget: Widget;
+  errorFlag = false;
+  errorMsg = 'Search text cannot be empty!';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private flickrService: FlickrService,
               private widgetService: WidgetService) {
     this.widget = new Widget('', '', '',
-      1, '', '', '', '', false);
+      1, '', '', '', '', false, null);
+    this.photos = [null];
   }
 
   searchPhotos() {
+    if (!this.searchText) {
+      this.errorFlag = true;
+      return;
+    }
     this.flickrService
       .searchPhotos(this.searchText)
       .subscribe(

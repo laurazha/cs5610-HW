@@ -1,6 +1,6 @@
-var mongoose = require ("mongoose");
+var mongoose = require("mongoose");
 var WebsiteSchema = require("./website.schema.server");
-var WebsiteModel =  mongoose.model("Website", WebsiteSchema);
+var WebsiteModel = mongoose.model("Website", WebsiteSchema);
 var UserModel = require("../user/user.model.server");
 
 WebsiteModel.createWebsiteForUser = createWebsiteForUser;
@@ -11,7 +11,7 @@ WebsiteModel.deleteWebsite = deleteWebsite;
 
 module.exports = WebsiteModel;
 
-function createWebsiteForUser(userId, website)  {
+function createWebsiteForUser(userId, website) {
   website._user = userId;
   return WebsiteModel.create(website);
 }
@@ -24,7 +24,7 @@ function findWebsiteById(websiteId) {
   return WebsiteModel.findById(websiteId);
 }
 
-function updateWebsite(websiteId, website){
+function updateWebsite(websiteId, website) {
   return WebsiteModel.findByIdAndUpdate(websiteId, website);
 }
 

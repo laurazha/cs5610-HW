@@ -43,6 +43,10 @@
     </ul>
   </div>
   <div class="col-xs-8 container-padding">
+    <div *ngIf="errorFlag"
+         class="alert alert-danger">
+      {{errorMsg}}
+    </div>
     <label for="Edit-Website-Name">Website Name</label>
     <input id="Edit-Website-Name"
            type="text"
@@ -71,7 +75,7 @@
        class="navbar-text white-text pull-left icon-padding">
       <span class="glyphicon glyphicon-home"></span>
     </a>
-    <a routerLink='../../'
+    <a routerLink='/profile'
        class="navbar-text white-text pull-right icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>

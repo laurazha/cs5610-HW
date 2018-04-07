@@ -11,13 +11,15 @@ import {Widget} from '../../../../models/widget.model.client';
 export class WidgetHeaderComponent implements OnInit {
   widgetId: string;
   widget: Widget;
+  errorFlag = false;
+  errorMsg = 'Widget name cannot be empty!';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private widgetService: WidgetService) {
     this.widget = new Widget(null, 'HEADING', null,
-      1, null, null, null, null, false);  }
+      1, null, null, null, null, false, null);  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -32,6 +34,10 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget() {
+    if (!this.widget.name) {
+      this.errorFlag = true;
+      return;
+    }
     this.widgetService.updateWidgetInServer(this.widgetId, this.widget).subscribe(
       (widget: Widget) => {
         this.widget = widget;

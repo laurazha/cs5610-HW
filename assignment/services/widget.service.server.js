@@ -1,5 +1,7 @@
 module.exports = function (app) {
   var widgetModel = require("../model/widget/widget.model.server");
+  var pageModel = require("../model/page/page.model.server");
+
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
   app.get("/api/widget/:widgetId", findWidgetById);
@@ -8,36 +10,40 @@ module.exports = function (app) {
   app.put("/api/page/:pageId/widget", reorderWidgets);
 
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
-  app.post ("/api/upload", upload.single('myFile'), uploadImage);
+  var upload = multer({dest: __dirname + '/../../src/assets/uploads'});
+  app.post("/api/upload", upload.single('myFile'), uploadImage);
 
   // var baseUrl = 'http://localhost:3100';
   var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
-  var n = 0;
+  var n = -1;
 
   function createWidget(req, res) {
     var pageId = req.params["pageId"];
+    n = n + 1;
     const widget = {
       type: req.body.type,
-      text: req.body.text,
-      placeholder: req.body.placeholder,
-      url: req.body.url,
-      width: req.body.width,
-      rows: req.body.rows,
-      size: req.body.size,
-      formatted: req.body.formatted,
-      position: n++
+      position: n
     };
     widgetModel.createWidget(pageId, widget)
-      .then(function(widget) {
+      .then(function (widget) {
+        pageModel.findPageById(pageId)
+          .then(function (page) {
+            page.widgets.push(widget);
+            pageModel.updatePage(pageId, page).then();
+          });
         res.json(widget);
       });
   }
 
   function findAllWidgetsForPage(req, res) {
     var pageId = req.params["pageId"];
+    var newPos = 0;
     widgetModel.findAllWidgetsForPage(pageId)
-      .then(function(widgets) {
+      .then(function (widgets) {
+        widgets.forEach(function (widget) {
+          widget.position = newPos++;
+          widgetModel.updateWidget(widget._id, widget).then();
+        });
         res.json(widgets);
       });
   }
@@ -45,7 +51,7 @@ module.exports = function (app) {
   function findWidgetById(req, res) {
     var widgetId = req.params["widgetId"];
     widgetModel.findWidgetById(widgetId)
-      .then(function(widget) {
+      .then(function (widget) {
         res.json(widget);
       });
   }
@@ -53,10 +59,9 @@ module.exports = function (app) {
   function updateWidget(req, res) {
     var widgetId = req.params["widgetId"];
     var widget = req.body;
-    widgetModel.updateWidget(widgetId, widget)
-      .then(function(widget) {});
+    widgetModel.updateWidget(widgetId, widget).then();
     widgetModel.findWidgetById(widgetId)
-      .then(function(widget) {
+      .then(function (widget) {
         res.json(widget);
       });
   }
@@ -64,38 +69,35 @@ module.exports = function (app) {
   function deleteWidget(req, res) {
     var widgetId = req.params["widgetId"];
     widgetModel.deleteWidget(widgetId)
-      .then(function(status) {
+      .then(function (status) {
         res.send(status);
       });
   }
 
   function uploadImage(req, res) {
-    var userId        = req.body.userId;
-    var websiteId     = req.body.websiteId;
-    var pageId        = req.body.pageId;
-    var widgetId      = req.body.widgetId;
-    var myFile        = req.file;
+    var websiteId = req.body.websiteId;
+    var pageId = req.body.pageId;
+    var widgetId = req.body.widgetId;
+    var myFile = req.file;
 
-    var callbackUrl = baseUrl+"/profile/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
+    var callbackUrl = baseUrl + "/profile/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
 
     if (myFile === null) {
       res.redirect(callbackUrl);
       return;
     }
-    var originalname  = myFile.originalname; // file name on user's computer
-    var filename      = myFile.filename;     // new file name in upload folder
-    var path          = myFile.path;         // full path of uploaded file
-    var destination   = myFile.destination;  // folder where file is saved to
-    var size          = myFile.size;
-    var mimetype      = myFile.mimetype;
+    var originalname = myFile.originalname; // file name on user's computer
+    var filename = myFile.filename;     // new file name in upload folder
+    var path = myFile.path;         // full path of uploaded file
+    var destination = myFile.destination;  // folder where file is saved to
+    var size = myFile.size;
+    var mimetype = myFile.mimetype;
 
     const widget = {
-      url: baseUrl+'/assets/uploads/'+filename
+      url: baseUrl + '/assets/uploads/' + filename
     };
 
-    widgetModel.updateWidget(widgetId, widget)
-      .then(function(widget) {});
-
+    widgetModel.updateWidget(widgetId, widget).then();
     res.redirect(callbackUrl);
   }
 
@@ -103,14 +105,15 @@ module.exports = function (app) {
     var pageId = req.params.pageId;
     var startIndex = parseInt(req.query.initial);
     var endIndex = parseInt(req.query.final);
-    widgetModel.reorderWidget(pageId, startIndex, endIndex)
-      .then(function (widget) {});
+    widgetModel.reorderWidget(pageId, startIndex, endIndex).then();
     widgetModel.findAllWidgetsForPage(pageId)
       .then(function (widgets) {
         res.json(widgets);
       });
   }
+
 };
+
 
 /*
   var widgets = [

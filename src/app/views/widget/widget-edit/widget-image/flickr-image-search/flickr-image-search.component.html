@@ -12,6 +12,10 @@
 </nav>
 
 <div class="container container-padding">
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMsg}}
+  </div>
   <div class="input-group">
     <input [(ngModel)]="searchText"
            type="text"
@@ -41,7 +45,7 @@
        class="navbar-text pull-left icon-padding">
       <span class="glyphicon glyphicon-home"></span>
     </a>
-    <a routerLink="../../../../../../../"
+    <a routerLink="/profile"
        class="navbar-text pull-right icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>

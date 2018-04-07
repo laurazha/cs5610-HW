@@ -11,6 +11,8 @@ import {Page} from '../../../models/page.model.client';
 export class PageEditComponent implements OnInit {
   pageId: string;
   page: Page;
+  errorFlag = false;
+  errorMsg = 'Page name cannot be empty!';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +34,10 @@ export class PageEditComponent implements OnInit {
   }
 
   updatePage() {
+    if (!this.page.name) {
+      this.errorFlag = true;
+      return;
+    }
     this.pageService.updatePage(this.pageId, this.page).subscribe(
       (page: Page) => {
         this.page = page;

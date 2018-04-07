@@ -51,9 +51,6 @@
              placeholder="Name"
              name="websiteName"
              ngModel required #websiteName="ngModel"/>
-      <span class="help-block" *ngIf="!websiteName.valid && websiteName.touched">
-      Please enter website name!
-      </span>
       <label for="Website-Description">Description</label>
       <textarea id="Website-Description"
                 class="form-control"
@@ -75,7 +72,7 @@
        class="navbar-text white-text pull-left icon-padding">
       <span class="glyphicon glyphicon-home"></span>
     </a>
-    <a routerLink="../../../"
+    <a routerLink="/profile"
        class="navbar-text white-text pull-right icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>

@@ -1,6 +1,6 @@
-var mongoose = require ("mongoose");
+var mongoose = require("mongoose");
 var WidgetSchema = require("./widget.schema.server");
-var WidgetModel =  mongoose.model("Widget", WidgetSchema);
+var WidgetModel = mongoose.model("Widget", WidgetSchema);
 
 WidgetModel.createWidget = createWidget;
 WidgetModel.findAllWidgetsForPage = findAllWidgetsForPage;
@@ -11,14 +11,14 @@ WidgetModel.reorderWidget = reorderWidget;
 
 module.exports = WidgetModel;
 
-function createWidget(pageId, widget)  {
+function createWidget(pageId, widget) {
   widget._page = pageId;
   return WidgetModel.create(widget);
 }
 
 function findAllWidgetsForPage(pageId) {
   return WidgetModel.find({_page: pageId})
-    .sort({position: 1});
+    .sort({position: 1}).exec();
 }
 
 function findWidgetById(widgetId) {
@@ -36,27 +36,18 @@ function deleteWidget(widgetId) {
 function reassignPosition(pageId) {
   var n = 0;
   return findAllWidgetsForPage(pageId).then(
-    function(widgets) {
+    function (widgets) {
       widgets.forEach(function (widget) {
         widget.position = n++;
         widget.save();
       });
     }
   )
-  /*
-  return WidgetModel.find({_page:pageId}, function (err, widgets) {
-      widgets.forEach(function (widget) {
-        widget.position = n++;
-        widget.save();
-      });
-    });
-    */
 }
 
 function reorderWidget(pageId, start, end) {
-  reassignPosition(pageId);
-  return WidgetModel.find({_page:pageId}, function(err, widgets) {
-    widgets.forEach (function (widget) {
+  return WidgetModel.find({_page: pageId}, function (err, widgets) {
+    widgets.forEach(function (widget) {
       if (start < end) {
         if (widget.position === start) {
           widget.position = end;
@@ -67,16 +58,16 @@ function reorderWidget(pageId, start, end) {
           widget.save();
         }
       } else {
-          if (widget.position === start){
-            widget.position = end;
-            widget.save();
-          } else if (widget.position < start
-            && widget.position >= end){
-            widget.position ++;
-            widget.save();
-          }
+        if (widget.position === start) {
+          widget.position = end;
+          widget.save();
+        } else if (widget.position < start
+          && widget.position >= end) {
+          widget.position++;
+          widget.save();
         }
-      });
+      }
+    });
   });
 
 }
