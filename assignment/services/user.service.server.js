@@ -16,7 +16,7 @@ module.exports = function (app) {
   app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: '/profile',
+      successRedirect: '/#/profile',
       failureRedirect: '/#/login'
     }));
 
@@ -67,7 +67,7 @@ module.exports = function (app) {
 
   // config facebook strategy
   var fbCallbackUrl = baseUrl + '/auth/facebook/callback';
-  var fbAppId = '';
+  var fbAppId = null;
   var fbSecret = '';
 
   if (process.env.FACEBOOK_CALLBACK_URL) {
@@ -86,9 +86,9 @@ module.exports = function (app) {
     callbackURL: fbCallbackUrl
   };
 
-  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-
   function facebookStrategy(token, refreshToken, profile, done) {
+    console.log("fb strategy starts");
+    console.log('fb profile id: ' + profile.id);
     userModel
       .findUserByFacebookId(profile.id)
       .then(
@@ -103,8 +103,7 @@ module.exports = function (app) {
               email: profile.emails ? profile.emails[0].value : "",
               facebook: {
                 id: profile.id,
-                token: token,
-                displayName: profile.displayName
+                token: token
               }
             };
             return userModel.createUser(newFacebookUser);
@@ -127,6 +126,8 @@ module.exports = function (app) {
         }
       );
   }
+
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
   function register(req, res) {
     var user = req.body;
