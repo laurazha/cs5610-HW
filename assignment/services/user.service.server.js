@@ -4,6 +4,7 @@ module.exports = function (app) {
   var FacebookStrategy = require('passport-facebook').Strategy;
   var bcrypt = require("bcrypt-nodejs");
   var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
+  // var baseUrl = 'http://localhost:3100';
 
   app.post('/api/login', passport.authenticate('local'), login);
   app.post('/api/logout', logout);
@@ -67,7 +68,7 @@ module.exports = function (app) {
   // config facebook strategy
   var fbCallbackUrl = baseUrl + '/auth/facebook/callback';
   var fbAppId = '2041939546020825';
-  var fbSecret = '';
+  var fbSecret = 'a7b0d5fac197f9e67e94d2c3efd9594c';
 
   if (process.env.FACEBOOK_CALLBACK_URL) {
     fbCallbackUrl = process.env.FACEBOOK_CALLBACK_URL;
