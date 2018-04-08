@@ -3,8 +3,6 @@ module.exports = function (app) {
   var passport = require('passport');
   var FacebookStrategy = require('passport-facebook').Strategy;
   var bcrypt = require("bcrypt-nodejs");
-  // var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
-  // var baseUrl = 'http://localhost:3100';
 
   app.post('/api/login', passport.authenticate('local'), login);
   app.post('/api/logout', logout);
@@ -13,19 +11,12 @@ module.exports = function (app) {
   app.get("/api/user/:userId", findUserById);
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
-  app.get('/facebook/login', passport.authenticate('facebook'));
+  app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/profile',
     failureRedirect: '/login'
   }));
 
-  /*
-  app.get('/auth/facebook/callback', testingfb);
-
-  function testingfb(req, res) {
-    res.send(404);
-  }
-  */
 
   // config passport
   passport.serializeUser(serializeUser);
@@ -72,7 +63,6 @@ module.exports = function (app) {
   }
 
   // config facebook strategy
-
   var facebookConfig = {
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
@@ -83,20 +73,18 @@ module.exports = function (app) {
 
   function facebookStrategy(token, refreshToken, profile, done) {
     userModel.findUserByFacebookId(profile.id).then(function (user) {
-      console.log('fb strategy: finding user by fb id');
       if (user) {
         return done(null, user);
       } else {
         var names = profile.displayName.split(" ");
         var newFacebookUser = {
           username: names[0],
-          password: 'alice',
+          password: '123',
           lastName: names[1],
           firstName: names[0],
           email: profile.emails ? profile.emails[0].value : "",
           facebook: {id: profile.id, token: token}
         };
-        console.log('fb strategy: creating user');
         return userModel.createUser(newFacebookUser);
       }
     }, function (err) {
