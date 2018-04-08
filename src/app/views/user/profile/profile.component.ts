@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   updateFlag = false;
   updateMsg = 'Profile updated!';
   errorFlag = false;
-  errorMsg = 'Username and password cannot be empty!';
+  errorMsg = 'Username cannot be empty!';
 
   constructor(private userService: UserService,
               private router: Router,
