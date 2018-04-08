@@ -13,12 +13,20 @@ module.exports = function (app) {
   app.get("/api/user/:userId", findUserById);
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
-  app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
+  app.get('/facebook/login', passport.authenticate('facebook'));
+  app.get('/auth/facebook/callback', testingfb);
+  /*
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/#/profile',
     failureRedirect: '/#/login'
   }));
+*/
 
+
+  function testingfb(req, res) {
+    window.alert("callback from fb login");
+    res.send(404);
+  }
 
   // config passport
   passport.serializeUser(serializeUser);
@@ -66,9 +74,9 @@ module.exports = function (app) {
 
   // config facebook strategy
   var facebookConfig = {
-    clientID: '2041939546020825',
-    clientSecret: 'a7b0d5fac197f9e67e94d2c3efd9594c',
-    callbackURL: 'https://cs5610-hw-xiaoshuang.herokuapp.com/auth/facebook/callback'
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
   };
 
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
@@ -101,6 +109,7 @@ module.exports = function (app) {
   }
 
   function register(req, res) {
+    window.alert("register");
     var user = req.body;
     user.password = bcrypt.hashSync(user.password);
     userModel.createUser(user)
