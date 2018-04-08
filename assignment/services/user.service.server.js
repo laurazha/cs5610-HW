@@ -14,8 +14,7 @@ module.exports = function (app) {
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
   app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
-  app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
       successRedirect: '/#/profile',
       failureRedirect: '/#/login'
     }));
@@ -73,6 +72,7 @@ module.exports = function (app) {
   };
 
   function facebookStrategy(token, refreshToken, profile, done) {
+    window.alert('facebook strategy starts');
     userModel
       .findUserByFacebookId(profile.id)
       .then(

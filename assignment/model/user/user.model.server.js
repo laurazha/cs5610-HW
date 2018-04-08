@@ -14,6 +14,7 @@ UserModel.findUserByFacebookId = findUserByFacebookId;
 module.exports = UserModel;
 
 function findUserByFacebookId(facebookId) {
+  window.alert('Finding user by fb id...');
   return UserModel.findOne({'facebook.id': facebookId});
 }
 
