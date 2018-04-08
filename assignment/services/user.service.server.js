@@ -66,29 +66,13 @@ module.exports = function (app) {
   }
 
   // config facebook strategy
-  var fbCallbackUrl = baseUrl + '/auth/facebook/callback';
-  var fbAppId = null;
-  var fbSecret = '';
-
-  if (process.env.FACEBOOK_CALLBACK_URL) {
-    fbCallbackUrl = process.env.FACEBOOK_CALLBACK_URL;
-  }
-  if (process.env.FACEBOOK_CLIENT_ID) {
-    fbAppId = process.env.FACEBOOK_CLIENT_ID;
-  }
-  if (process.env.FACEBOOK_CLIENT_SECRET) {
-    fbSecret = process.env.FACEBOOK_CLIENT_SECRET;
-  }
-
   var facebookConfig = {
-    clientID: fbAppId,
-    clientSecret: fbSecret,
-    callbackURL: fbCallbackUrl
+    clientID     : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
   };
 
   function facebookStrategy(token, refreshToken, profile, done) {
-    console.log("fb strategy starts");
-    console.log('fb profile id: ' + profile.id);
     userModel
       .findUserByFacebookId(profile.id)
       .then(
@@ -98,8 +82,8 @@ module.exports = function (app) {
           } else {
             var names = profile.displayName.split(" ");
             var newFacebookUser = {
-              firstName: names[0],
               lastName: names[1],
+              firstName: names[0],
               email: profile.emails ? profile.emails[0].value : "",
               facebook: {
                 id: profile.id,
