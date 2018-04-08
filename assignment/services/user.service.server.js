@@ -15,9 +15,9 @@ module.exports = function (app) {
   app.delete("/api/user/:userId", deleteUser);
   app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-      successRedirect: '/#/profile',
-      failureRedirect: '/#/login'
-    }));
+    successRedirect: '/#/profile',
+    failureRedirect: '/#/login'
+  }));
 
 
   // config passport
@@ -66,52 +66,39 @@ module.exports = function (app) {
 
   // config facebook strategy
   var facebookConfig = {
-    clientID     : process.env.FACEBOOK_CLIENT_ID,
-    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+    clientID: '2041939546020825',
+    clientSecret: 'a7b0d5fac197f9e67e94d2c3efd9594c',
+    callbackURL: 'https://cs5610-hw-xiaoshuang.herokuapp.com/auth/facebook/callback'
   };
 
-  function facebookStrategy(token, refreshToken, profile, done) {
-    window.alert('facebook strategy starts');
-    userModel
-      .findUserByFacebookId(profile.id)
-      .then(
-        function (user) {
-          if (user) {
-            return done(null, user);
-          } else {
-            var names = profile.displayName.split(" ");
-            var newFacebookUser = {
-              lastName: names[1],
-              firstName: names[0],
-              email: profile.emails ? profile.emails[0].value : "",
-              facebook: {
-                id: profile.id,
-                token: token
-              }
-            };
-            return userModel.createUser(newFacebookUser);
-          }
-        },
-        function (err) {
-          if (err) {
-            return done(err);
-          }
-        }
-      )
-      .then(
-        function (user) {
-          return done(null, user);
-        },
-        function (err) {
-          if (err) {
-            return done(err);
-          }
-        }
-      );
-  }
-
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+  function facebookStrategy(token, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id).then(function (user) {
+      if (user) {
+        return done(null, user);
+      } else {
+        var names = profile.displayName.split(" ");
+        var newFacebookUser = {
+          lastName: names[1],
+          firstName: names[0],
+          email: profile.emails ? profile.emails[0].value : "",
+          facebook: {id: profile.id, token: token}
+        };
+        return userModel.createUser(newFacebookUser);
+      }
+    }, function (err) {
+      if (err) {
+        return done(err);
+      }
+    }).then(function (user) {
+      return done(null, user);
+    }, function (err) {
+      if (err) {
+        return done(err);
+      }
+    });
+  }
 
   function register(req, res) {
     var user = req.body;
