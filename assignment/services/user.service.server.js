@@ -24,7 +24,6 @@ module.exports = function (app) {
 
 
   function testingfb(req, res) {
-    window.alert("callback from fb login");
     res.send(404);
   }
 
@@ -109,7 +108,6 @@ module.exports = function (app) {
   }
 
   function register(req, res) {
-    window.alert("register");
     var user = req.body;
     user.password = bcrypt.hashSync(user.password);
     userModel.createUser(user)
