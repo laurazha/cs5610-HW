@@ -14,17 +14,22 @@ module.exports = function (app) {
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
   app.get('/facebook/login', passport.authenticate('facebook'));
-  /* app.get('/auth/facebook/callback', testingfb);
-  function testingfb(req, res) {
-    res.send(404);
-  }
-   */
+  app.get('/auth/facebook/callback', testingfb);
 
+  function testingfb(req, res) {
+    passport.authenticate('facebook', {
+      successRedirect: '/login',
+      failureRedirect: '/login'
+    });
+    // res.send(404);
+  }
+
+/*
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/login',
     failureRedirect: '/login'
   }));
-
+*/
 
   // config passport
   passport.serializeUser(serializeUser);
