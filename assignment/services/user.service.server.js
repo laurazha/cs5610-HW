@@ -83,6 +83,7 @@ module.exports = function (app) {
 
   function facebookStrategy(token, refreshToken, profile, done) {
     userModel.findUserByFacebookId(profile.id).then(function (user) {
+      console.log('fb strategy: finding user by fb id');
       if (user) {
         return done(null, user);
       } else {
@@ -95,6 +96,7 @@ module.exports = function (app) {
           email: profile.emails ? profile.emails[0].value : "",
           facebook: {id: profile.id, token: token}
         };
+        console.log('fb strategy: creating user');
         return userModel.createUser(newFacebookUser);
       }
     }, function (err) {
