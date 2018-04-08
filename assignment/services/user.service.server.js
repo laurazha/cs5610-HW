@@ -1,9 +1,8 @@
 module.exports = function (app) {
   var userModel = require("../model/user/user.model.server");
   var passport = require('passport');
-  var FacebookStrategy = require('passport-facebook').Strategy;
   var bcrypt = require("bcrypt-nodejs");
-  var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
+  // var baseUrl = 'https://cs5610-hw-xiaoshuang.herokuapp.com';
   // var baseUrl = 'http://localhost:3100';
 
   app.post('/api/login', passport.authenticate('local'), login);
@@ -14,22 +13,18 @@ module.exports = function (app) {
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
   app.get('/facebook/login', passport.authenticate('facebook'));
-  app.get('/auth/facebook/callback', testingfb);
-
-  function testingfb(req, res) {
-    passport.authenticate('facebook', {
-      successRedirect: '/login',
-      failureRedirect: '/login'
-    });
-    // res.send(404);
-  }
-
-/*
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/login',
     failureRedirect: '/login'
   }));
-*/
+
+  /*
+  app.get('/auth/facebook/callback', testingfb);
+
+  function testingfb(req, res) {
+    res.send(404);
+  }
+  */
 
   // config passport
   passport.serializeUser(serializeUser);
@@ -76,13 +71,14 @@ module.exports = function (app) {
   }
 
   // config facebook strategy
+  var FacebookStrategy = require('passport-facebook').Strategy;
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
   var facebookConfig = {
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK_URL
   };
-
-  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
   function facebookStrategy(token, refreshToken, profile, done) {
     userModel.findUserByFacebookId(profile.id).then(function (user) {
@@ -110,6 +106,7 @@ module.exports = function (app) {
       }
     });
   }
+
 
   function register(req, res) {
     var user = req.body;
